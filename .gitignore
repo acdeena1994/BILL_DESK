@@ -1,0 +1,29 @@
+﻿# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Expo
+.expo/
+web-build/
+dist/
+
+# Android build outputs & caches
+android/app/build/
+android/app/.cxx/
+android/.gradle/
+android/build/
+*.apk
+*.aab
+
+# Native build intermediates in node_modules
+**/android/build/
+**/android/.cxx/
+**/android/.gradle/
+
+# Temp & logs
+*.log
+*.tmp
+.DS_Store
+Thumbs.db

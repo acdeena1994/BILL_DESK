@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "Bill Desk",
+    "slug": "bill-desk",
+    "version": "1.0.0",
+    "newArchEnabled": true,
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000000"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.billdesk.pharmacy",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#091540"
+      },
+      "permissions": [
+        "android.permission.INTERNET"
+      ]
+    },
+    "plugins": [
+      "expo-sqlite",
+      "expo-localization"
+    ]
+  }
+}
