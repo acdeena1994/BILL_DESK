@@ -261,9 +261,9 @@ export const OnboardingScreen: React.FC = () => {
         },
         {
           labelKey: 'onboarding.slide4.bullet5_label',
-          label: 'Data Cleansing',
+          label: 'Bill Counter Reset',
           textKey: 'onboarding.slide4.bullet5_text',
-          text: 'Utilises a secure bill reset option to permanently wipe all billing records instantly.',
+          text: 'Utilises a secure bill counter reset option to restart invoice numbering from 0 anytime.',
         },
       ],
       badge1Icon: 'shield-lock-fill',

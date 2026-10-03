@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS bills (
   date TEXT NOT NULL,
   customer_name TEXT,
   doctor_name TEXT,
+  card_expiry_date TEXT,
   total_amount REAL NOT NULL DEFAULT 0.0,
   created_at TEXT DEFAULT CURRENT_TIMESTAMP
 );

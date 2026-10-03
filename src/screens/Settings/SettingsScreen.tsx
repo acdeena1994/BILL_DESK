@@ -20,7 +20,7 @@ import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 import { useSettingsStore } from '../../store/useSettingsStore';
 import { useBillingStore } from '../../store/useBillingStore';
-import { resetAllBills } from '../../db/billQueries';
+import { resetBillCounter } from '../../db/billQueries';
 import { SUPPORTED_LANGUAGES, changeAppLanguage } from '../../localization/i18n';
 import {
   getDatabaseStats,
@@ -145,28 +145,28 @@ export const SettingsScreen: React.FC = () => {
 
   const handleResetBills = () => {
     Alert.alert(
-      t('settings.resetConfirmTitle', 'Reset All Bills?'),
+      t('settings.resetConfirmTitle', 'Reset Bill Counter'),
       t(
         'settings.resetConfirmMsg',
-        'This will permanently delete all bill records and their line items from mobile, and reset the bill number counter to 0001.\n\nThis action cannot be undone.'
+        'This will restart bill numbering from 0. Continue?'
       ),
       [
         { text: t('common.cancel', 'Cancel'), style: 'cancel' },
         {
-          text: t('settings.resetBills', 'Reset Bill (to 0001)'),
+          text: t('common.continue', 'Continue'),
           style: 'destructive',
           onPress: async () => {
             setIsResetting(true);
             try {
-              await resetAllBills();
+              await resetBillCounter();
               useBillingStore.getState().clearBill();
               refreshDbStats();
               Alert.alert(
                 t('common.success', 'Success'),
-                'All bill records have been deleted. Next bill number will restart at 0001.'
+                'Bill counter reset to 0. Next bill will start at 0001.'
               );
             } catch (err: any) {
-              Alert.alert('Reset Error', err.message || 'Failed to reset bills');
+              Alert.alert('Reset Error', err.message || 'Failed to reset bill counter');
             } finally {
               setIsResetting(false);
             }
@@ -540,7 +540,7 @@ export const SettingsScreen: React.FC = () => {
           <Text style={styles.dangerSubtitle}>
             {t(
               'settings.dangerSubtitle',
-              'Delete all bill records and their line items from mobile, and reset the bill numbering sequence back to 0001 immediately.'
+              'Restart the bill numbering sequence from 0 without deleting existing bills.'
             )}
           </Text>
 
@@ -548,7 +548,7 @@ export const SettingsScreen: React.FC = () => {
             title={
               isResetting
                 ? t('common.loading', 'Loading...')
-                : t('settings.resetBills', 'Reset Bill (to 0001)')
+                : t('settings.resetBills', 'Reset Counter (to 0)')
             }
             variant="outline"
             size="md"

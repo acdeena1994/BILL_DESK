@@ -90,7 +90,11 @@
     "itemDeleted": "বস্তুটো বিলৰ পৰা আঁতৰোৱা হ'ল",
     "emptyBillError": "Please add at least one medicine item to the bill before previewing.",
     "missingNameError": "Item must have a medicine name.",
-    "invalidQtyError": "Quantity must be at least 1."
+    "invalidQtyError": "Quantity must be at least 1.",
+    "cardDetails": "কাৰ্ড পৰিশোধৰ বিৱৰণ",
+    "cardExpiry": "কাৰ্ডৰ ম্যাদ উকলি যোৱাৰ তাৰিখ (MM/YY)",
+    "cardExpiredError": "ঔষধৰ ম্যাদ উকলি গৈছে। অনুগ্ৰহ কৰি ভৱিষ্যতৰ ম্যাদ উকলি যোৱাৰ তাৰিখ প্ৰৱিষ্ট কৰক।",
+    "medicineExpiredError": "ঔষধৰ ম্যাদ উকলি গৈছে। অনুগ্ৰহ কৰি ভৱিষ্যতৰ ম্যাদ উকলি যোৱাৰ তাৰিখ প্ৰৱিষ্ট কৰক।"
   },
   "preview": {
     "title": "Bill Receipt",
@@ -179,10 +183,10 @@
     "saveSettings": "ছেটিংছ সংৰক্ষণ কৰক",
     "savedSuccess": "ছেটিংছ সফলতাৰে সংৰক্ষণ কৰা হ'ল",
     "dangerZone": "Danger Zone",
-    "dangerSubtitle": "Delete all bill records and their line items from mobile, and reset the bill numbering sequence back to 0001 immediately.",
-    "resetBills": "Reset Bill (to 0001)",
-    "resetConfirmTitle": "Reset All Bills?",
-    "resetConfirmMsg": "This will permanently delete all bill records and their line items from mobile, and reset the bill number counter to 0001.\n\nThis action cannot be undone.",
+    "dangerSubtitle": "বৰ্তমানৰ বিলসমূহ ডিলিট নকৰাকৈ 0 ৰ পৰা বিল নম্বৰ ক্ৰম পুনৰাৰম্ভ কৰক।",
+    "resetBills": "কাউণ্টাৰ ৰিছেট কৰক (0 লৈ)",
+    "resetConfirmTitle": "বিল কাউণ্টাৰ ৰিছেট কৰক",
+    "resetConfirmMsg": "ই 0 ৰ পৰা বিল নম্বৰিং পুনৰাৰম্ভ কৰিব। অব্যাহত ৰাখিবনে?",
     "revisitGuide": "Take app tour again",
     "revisitGuideSubtitle": "See the Bill Desk guide again to understand how to use the app effectively.",
     "openGuide": "গাইড খোলক"
@@ -207,6 +211,7 @@
     "loading": "লোড হৈ আছে...",
     "success": "Success",
     "error": "Error",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "continue": "অব্যাহত ৰাখক"
   }
 }

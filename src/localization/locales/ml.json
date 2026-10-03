@@ -90,7 +90,11 @@
     "itemDeleted": "ഇനം ബില്ലിൽ നിന്ന് ഒഴിവാക്കി",
     "emptyBillError": "Please add at least one medicine item to the bill before previewing.",
     "missingNameError": "Item must have a medicine name.",
-    "invalidQtyError": "Quantity must be at least 1."
+    "invalidQtyError": "Quantity must be at least 1.",
+    "cardDetails": "കാർഡ് പേയ്‌മെന്റ് വിവരങ്ങൾ",
+    "cardExpiry": "കാർഡ് കാലാവധി തീയതി (MM/YY)",
+    "cardExpiredError": "മരുന്നിന്റെ കാലാവധി കഴിഞ്ഞു. ദയവായി ഭാവിയിലെ കാലാവധി തീയതി നൽകുക.",
+    "medicineExpiredError": "മരുന്നിന്റെ കാലാവധി കഴിഞ്ഞു. ദയവായി ഭാവിയിലെ കാലാവധി തീയതി നൽകുക."
   },
   "preview": {
     "title": "Bill Receipt",
@@ -179,10 +183,10 @@
     "saveSettings": "ക്രമീകരണങ്ങൾ സേവ് ചെയ്യുക",
     "savedSuccess": "ക്രമീകരണങ്ങൾ വിജയകരമായി സേവ് ചെയ്തു",
     "dangerZone": "Danger Zone",
-    "dangerSubtitle": "Delete all bill records and their line items from mobile, and reset the bill numbering sequence back to 0001 immediately.",
-    "resetBills": "Reset Bill (to 0001)",
-    "resetConfirmTitle": "Reset All Bills?",
-    "resetConfirmMsg": "This will permanently delete all bill records and their line items from mobile, and reset the bill number counter to 0001.\n\nThis action cannot be undone.",
+    "dangerSubtitle": "നിലവിലുള്ള ബില്ലുകൾ ഇല്ലാതാക്കാതെ ബിൽ നമ്പർ സീക്വൻസ് 0 ൽ നിന്ന് പുനരാരംഭിക്കുക.",
+    "resetBills": "കൗണ്ടർ പുനഃസജ്ജമാക്കുക (0 ലേക്ക്)",
+    "resetConfirmTitle": "ബിൽ കൗണ്ടർ പുനഃസജ്ജമാക്കുക",
+    "resetConfirmMsg": "ഇത് 0 ൽ നിന്ന് ബിൽ നമ്പറിംഗ് പുനരാരംഭിക്കും. തുടരണോ?",
     "revisitGuide": "Take app tour again",
     "revisitGuideSubtitle": "See the Bill Desk guide again to understand how to use the app effectively.",
     "openGuide": "ഗൈഡ് തുറക്കുക"
@@ -207,6 +211,7 @@
     "loading": "ലോഡ് ചെയ്യുന്നു...",
     "success": "Success",
     "error": "Error",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "continue": "തുടരുക"
   }
 }

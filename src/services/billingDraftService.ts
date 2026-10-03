@@ -5,6 +5,7 @@ import { BillCartItem } from '../store/useBillingStore';
 export interface BillingDraft {
   customerName: string;
   doctorName: string;
+  cardExpiryDate?: string;
   date: string;
   items: BillCartItem[];
   savedAt: number;
@@ -22,7 +23,8 @@ export const hasActiveDraft = (
   const hasItems = Array.isArray(draft.items) && draft.items.length > 0;
   const hasCustomer = typeof draft.customerName === 'string' && draft.customerName.trim().length > 0;
   const hasDoctor = typeof draft.doctorName === 'string' && draft.doctorName.trim().length > 0;
-  return hasItems || hasCustomer || hasDoctor;
+  const hasCardExpiry = typeof draft.cardExpiryDate === 'string' && draft.cardExpiryDate.trim().length > 0;
+  return hasItems || hasCustomer || hasDoctor || hasCardExpiry;
 };
 
 /**
@@ -42,6 +44,7 @@ export const saveBillingDraft = async (
     const payload: BillingDraft = {
       customerName: draftData.customerName || '',
       doctorName: draftData.doctorName || '',
+      cardExpiryDate: draftData.cardExpiryDate || '',
       date: draftData.date || new Date().toISOString().split('T')[0],
       items: draftData.items || [],
       savedAt: draftData.savedAt || Date.now(),

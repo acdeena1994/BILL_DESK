@@ -20,7 +20,7 @@ import { Button } from '../../components/Button';
 import { BillSuccessModal } from './BillSuccessModal';
 import { useBillingStore } from '../../store/useBillingStore';
 import { useSettingsStore } from '../../store/useSettingsStore';
-import { formatCurrency, formatReadableDate } from '../../utils/formatters';
+import { formatCurrency, formatReadableDate, isExpiryDateValid } from '../../utils/formatters';
 import { generateBillingBillPdf } from './billingSharePdf';
 import { useTranslation } from 'react-i18next';
 import { Bill } from '../../db/billQueries';
@@ -83,9 +83,21 @@ export const BillPreviewScreen: React.FC = () => {
     ? (passedBill?.total_amount ?? Math.round((items.reduce((s, it) => s + ((parseFloat(String(it.price)) || 0) * (it.quantity || 1)), 0) + Number.EPSILON) * 100) / 100)
     : getTotalAmount();
 
+  const hasInvalidOrExpiredItems = !isViewMode && items.some(
+    (it) => Boolean(it.exp_date && it.exp_date.trim() !== '' && !isExpiryDateValid(it.exp_date, billDate))
+  );
+
   const handleSaveAndStartNewBill = async () => {
     if (items.length === 0) {
       Alert.alert('Empty Bill', 'No items in this bill to save.');
+      return;
+    }
+
+    if (hasInvalidOrExpiredItems) {
+      Alert.alert(
+        'Cannot Save Bill',
+        'Medicine has expired. Please enter a future expiry date.'
+      );
       return;
     }
 
@@ -471,7 +483,7 @@ export const BillPreviewScreen: React.FC = () => {
               size="lg"
               icon={<CircleCheck size={18} color={Colors.textLight} />}
               loading={isSaving}
-              disabled={isSaving || items.length === 0}
+              disabled={isSaving || items.length === 0 || hasInvalidOrExpiredItems}
               onPress={handleSaveAndStartNewBill}
               style={{ width: '100%' }}
             />

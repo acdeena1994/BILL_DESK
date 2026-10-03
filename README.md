@@ -41,7 +41,7 @@ Built with **React Native (Expo SDK 52)**, **TypeScript**, **Zustand**, and a lo
 * **Multi-Currency**: Select from standard currencies (`₹`, `$`, `€`, `£`, `AED`, `¥`) or enter a custom symbol.
 * **Real-Time Database Health**: Live counter displaying SQLite database file size, total bills recorded, and stock items count.
 * **One-Click Backup & Restore**: Export timestamped SQLite `.db` backups (with WAL checkpoint) to Google Drive or local storage; restore existing backup files with schema verification.
-* **Annual Data Reset**: Double-confirmation reset option to archive and clear invoices for a new financial year.
+* **Bill Counter Reset**: Confirmation-protected reset option to restart bill numbering from 0 without deleting existing bills.
 
 ### 5. Multi-Language Support (17 Languages)
 Switch dynamically without restarting the app:

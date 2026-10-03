@@ -152,6 +152,9 @@ export const initDatabase = async (): Promise<void> => {
       if (!billColNames.includes('doctor_name')) {
         await db.execAsync('ALTER TABLE bills ADD COLUMN doctor_name TEXT');
       }
+      if (!billColNames.includes('card_expiry_date')) {
+        await db.execAsync('ALTER TABLE bills ADD COLUMN card_expiry_date TEXT');
+      }
       if (!billColNames.includes('created_at')) {
         await db.execAsync('ALTER TABLE bills ADD COLUMN created_at TEXT DEFAULT CURRENT_TIMESTAMP');
       }

@@ -1,5 +1,6 @@
 import { getDB } from './index';
 import { decrementStock } from './stockQueries';
+import { isExpiryDateValid } from '../utils/formatters';
 
 export interface BillItem {
   id?: number;
@@ -19,6 +20,7 @@ export interface Bill {
   date: string;
   customer_name: string;
   doctor_name: string;
+  card_expiry_date?: string;
   total_amount: number;
   created_at?: string;
   items?: BillItem[];
@@ -40,50 +42,63 @@ export interface FlattenedReportRow {
 }
 
 /**
- * Generate sequential invoice number (e.g. 0001, 0002, ... restarting each calendar month)
+ * Retrieve the current sequential bill counter from persistent settings storage.
+ * If not yet explicitly set, falls back to the highest trailing sequence from existing bills.
  */
-export const generateNextBillNo = async (): Promise<string> => {
+export const getBillCounter = async (): Promise<number> => {
   const db = await getDB();
-  const today = new Date();
-  const currentMonth = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
-
-  const lastBill = await db.getFirstAsync<{ bill_no: string; date: string }>(
-    'SELECT bill_no, date FROM bills ORDER BY id DESC LIMIT 1'
+  const row = await db.getFirstAsync<{ value: string }>(
+    "SELECT value FROM settings WHERE key = 'bill_counter'"
   );
 
-  if (!lastBill || !lastBill.date) {
-    return '0001';
+  if (row && row.value !== null && row.value !== undefined) {
+    const parsed = parseInt(row.value, 10);
+    return isNaN(parsed) ? 0 : parsed;
   }
 
-  const lastBillMonth = lastBill.date.substring(0, 7);
+  // Fallback for existing installations: initialize from the last bill
+  const lastBill = await db.getFirstAsync<{ bill_no: string }>(
+    'SELECT bill_no FROM bills ORDER BY id DESC LIMIT 1'
+  );
 
-  // If calendar month changed, reset sequence to 0001
-  if (lastBillMonth !== currentMonth) {
-    return '0001';
+  if (!lastBill || !lastBill.bill_no) {
+    return 0;
   }
 
-  // Extract trailing digits from last bill_no
   const match = lastBill.bill_no.match(/(\d+)$/);
-  const lastSeq = match ? parseInt(match[1], 10) : 0;
-  const nextSeq = lastSeq + 1;
-
-  return String(nextSeq).padStart(4, '0');
+  return match ? parseInt(match[1], 10) : 0;
 };
 
 /**
- * Permanently deletes all bills and bill items, and resets bill sequence to 0001.
+ * Persist the sequential bill counter in settings storage.
  */
-export const resetAllBills = async (): Promise<void> => {
+export const setBillCounter = async (counter: number): Promise<void> => {
   const db = await getDB();
-  await db.withTransactionAsync(async () => {
-    await db.runAsync('DELETE FROM bill_items');
-    await db.runAsync('DELETE FROM bills');
-    try {
-      await db.runAsync("DELETE FROM sqlite_sequence WHERE name IN ('bills', 'bill_items')");
-    } catch {
-      // sqlite_sequence may not exist if no autoincrement operations were tracked
-    }
-  });
+  await db.runAsync(
+    "INSERT OR REPLACE INTO settings (key, value) VALUES ('bill_counter', ?)",
+    [String(counter)]
+  );
+};
+
+/**
+ * Reset the bill counter to 0 so the next generated bill will be 0001.
+ * Existing bills and line items in the database are preserved and untouched.
+ */
+export const resetBillCounter = async (): Promise<void> => {
+  await setBillCounter(0);
+};
+
+// Maintained for backward compatibility, safely resets the counter without deleting bills
+export const resetAllBills = resetBillCounter;
+
+/**
+ * Generate sequential invoice number (e.g. 0001, 0002, 0003...) continuously
+ * increasing across months and years.
+ */
+export const generateNextBillNo = async (): Promise<string> => {
+  const currentCounter = await getBillCounter();
+  const nextSeq = currentCounter + 1;
+  return String(nextSeq).padStart(4, '0');
 };
 
 /**
@@ -93,6 +108,20 @@ export const createBill = async (
   bill: Omit<Bill, 'id'>,
   items: Array<Omit<BillItem, 'id' | 'bill_id'>>
 ): Promise<{ billId: number; billNo: string }> => {
+  // Backend validation: Re-validate card expiry date if provided against bill date
+  if (bill.card_expiry_date && !isExpiryDateValid(bill.card_expiry_date, bill.date)) {
+    throw new Error('Medicine has expired. Please enter a future expiry date.');
+  }
+
+  // Backend validation: Re-validate item expiry dates against bill date
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    const exp = item.exp_date?.trim();
+    if (exp && !isExpiryDateValid(exp, bill.date)) {
+      throw new Error('Medicine has expired. Please enter a future expiry date.');
+    }
+  }
+
   const db = await getDB();
   let billId = 0;
   const billNo = bill.bill_no || (await generateNextBillNo());
@@ -100,13 +129,14 @@ export const createBill = async (
   await db.withTransactionAsync(async () => {
     // 1. Insert master bill
     const res = await db.runAsync(
-      `INSERT INTO bills (bill_no, date, customer_name, doctor_name, total_amount)
-       VALUES (?, ?, ?, ?, ?)`,
+      `INSERT INTO bills (bill_no, date, customer_name, doctor_name, card_expiry_date, total_amount)
+       VALUES (?, ?, ?, ?, ?, ?)`,
       [
         billNo,
         bill.date,
         bill.customer_name?.trim() || 'Walk-in Customer',
         bill.doctor_name?.trim() || 'Self / Direct',
+        bill.card_expiry_date?.trim() || null,
         Number(bill.total_amount) || 0,
       ]
     );
@@ -133,6 +163,16 @@ export const createBill = async (
 
       // Decrement inventory in stock table
       await decrementStock(item.medicine_name, Number(item.quantity) || 1);
+    }
+
+    // 3. Persist the updated sequential counter
+    const match = billNo.match(/(\d+)$/);
+    if (match) {
+      const currentSeq = parseInt(match[1], 10);
+      await db.runAsync(
+        "INSERT OR REPLACE INTO settings (key, value) VALUES ('bill_counter', ?)",
+        [String(currentSeq)]
+      );
     }
   });
 

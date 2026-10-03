@@ -90,7 +90,11 @@
     "itemDeleted": "আইটেম মুছে ফেলা হয়েছে",
     "emptyBillError": "Please add at least one medicine item to the bill before previewing.",
     "missingNameError": "Item must have a medicine name.",
-    "invalidQtyError": "Quantity must be at least 1."
+    "invalidQtyError": "Quantity must be at least 1.",
+    "cardDetails": "কার্ড পেমেন্টের বিবরণ",
+    "cardExpiry": "কার্ডের মেয়াদ শেষ হওয়ার তারিখ (MM/YY)",
+    "cardExpiredError": "ওষুধের মেয়াদ শেষ হয়ে গেছে। অনুগ্রহ করে ভবিষ্যতের মেয়াদ শেষ হওয়ার তারিখ লিখুন।",
+    "medicineExpiredError": "ওষুধের মেয়াদ শেষ হয়ে গেছে। অনুগ্রহ করে ভবিষ্যতের মেয়াদ শেষ হওয়ার তারিখ লিখুন।"
   },
   "preview": {
     "title": "Bill Receipt",
@@ -179,10 +183,10 @@
     "saveSettings": "সেটিংস সংরক্ষণ করুন",
     "savedSuccess": "সেটিংস সফলভাবে সংরক্ষিত হয়েছে",
     "dangerZone": "Danger Zone",
-    "dangerSubtitle": "Delete all bill records and their line items from mobile, and reset the bill numbering sequence back to 0001 immediately.",
-    "resetBills": "Reset Bill (to 0001)",
-    "resetConfirmTitle": "Reset All Bills?",
-    "resetConfirmMsg": "This will permanently delete all bill records and their line items from mobile, and reset the bill number counter to 0001.\n\nThis action cannot be undone.",
+    "dangerSubtitle": "বিদ্যমান বিলগুলি না মুছে 0 থেকে বিল নম্বর ক্রম পুনরায় চালু করুন।",
+    "resetBills": "কাউন্টার রিসেট করুন (0 তে)",
+    "resetConfirmTitle": "বিল কাউন্টার রিসেট করুন",
+    "resetConfirmMsg": "এটি 0 থেকে বিল নম্বরিং পুনরায় চালু করবে। চালিয়ে যাবেন?",
     "revisitGuide": "Take app tour again",
     "revisitGuideSubtitle": "See the Bill Desk guide again to understand how to use the app effectively.",
     "openGuide": "গাইড খুলুন"
@@ -207,6 +211,7 @@
     "loading": "লোড হচ্ছে...",
     "success": "Success",
     "error": "Error",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "continue": "চালিয়ে যান"
   }
 }

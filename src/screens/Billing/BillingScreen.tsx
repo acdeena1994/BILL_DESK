@@ -12,7 +12,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
-import { Search, Calendar, Pill, Plus, X, Eye } from 'lucide-react-native';
+import { Search, Calendar, Pill, Plus, X, Eye, AlertCircle } from 'lucide-react-native';
 import { RootStackParamList } from '../../navigation/types';
 import { Colors } from '../../theme/colors';
 import { Spacing, BorderRadius, Shadows } from '../../theme';
@@ -25,7 +25,14 @@ import { DatePickerModal } from '../../components/DatePickerModal';
 import { searchStock, StockItem } from '../../db/stockQueries';
 import { useBillingStore } from '../../store/useBillingStore';
 import { useSettingsStore } from '../../store/useSettingsStore';
-import { formatCurrency, formatReadableDate, formatExpiryDateInput, isValidExpiryDate } from '../../utils/formatters';
+import {
+  formatCurrency,
+  formatReadableDate,
+  formatExpiryDateInput,
+  isExpiryDateValid,
+  getExpiryDateError,
+  isValidExpiryDate,
+} from '../../utils/formatters';
 
 const DROPDOWN_ITEM_HEIGHT = 56;
 const DROPDOWN_VISIBLE_ROWS = 3;
@@ -123,13 +130,18 @@ export const BillingScreen: React.FC = () => {
       return;
     }
 
-    // 3. Validate expiry dates if entered (must be complete MM/YYYY)
+    // 3. Validate item expiry dates if entered (must be complete and not expired against chosen calendar date)
     for (let i = 0; i < items.length; i++) {
       const exp = items[i].exp_date?.trim();
-      if (exp && !isValidExpiryDate(exp)) {
+      if (exp && !isValidExpiryDate(exp, date)) {
+        const errorMsg = getExpiryDateError(exp, date);
+        const displayMsg =
+          errorMsg === 'Medicine has expired. Please enter a future expiry date.'
+            ? t('billing.cardExpiredError', 'Medicine has expired. Please enter a future expiry date.')
+            : errorMsg || t('billing.cardExpiredError', 'Medicine has expired. Please enter a future expiry date.');
         Alert.alert(
           t('common.error', 'Error'),
-          `Item #${items[i].item_no || i + 1} has an invalid Expiry Date ("${exp}"). Format: MM/YYYY.`
+          `Item #${items[i].item_no || i + 1}: ${displayMsg}`
         );
         return;
       }
@@ -141,6 +153,9 @@ export const BillingScreen: React.FC = () => {
 
   const currency = settings.currency_symbol || '₹';
   const grandTotal = getTotalAmount();
+  const hasInvalidOrExpiredItems = items.some(
+    (it) => Boolean(it.exp_date && it.exp_date.trim() !== '' && !isExpiryDateValid(it.exp_date, date))
+  );
 
   return (
     <View style={styles.container}>
@@ -392,6 +407,11 @@ export const BillingScreen: React.FC = () => {
                         updateItem(index, { exp_date: formatExpiryDateInput(val, item.exp_date) })
                       }
                       placeholder="MM/YYYY"
+                      error={
+                        item.exp_date && item.exp_date.trim() !== ''
+                          ? (getExpiryDateError(item.exp_date, date) || undefined)
+                          : undefined
+                      }
                       containerStyle={{ marginBottom: 8 }}
                     />
                   </View>
@@ -498,12 +518,28 @@ export const BillingScreen: React.FC = () => {
             </View>
 
             <View style={styles.saveActionContainer}>
+              {hasInvalidOrExpiredItems ? (
+                <View style={styles.expiredWarningBanner}>
+                  <AlertCircle size={15} color={Colors.danger} style={{ marginRight: 6 }} />
+                  <Text
+                    allowFontScaling={true}
+                    maxFontSizeMultiplier={FONT_SCALE_LIMITS.caption}
+                    style={styles.expiredWarningText}
+                  >
+                    {t(
+                      'billing.expiredWarningNotice',
+                      'One or more medicines have expired for the selected bill date. Please update expiry dates before previewing or saving.'
+                    )}
+                  </Text>
+                </View>
+              ) : null}
+
               <Button
                 title={t('billing.previewBill', 'Preview & Save Bill')}
                 variant="primary" // Primary Accent Blue #091540
                 size="lg"
                 icon={<Eye size={18} color={Colors.textLight} />}
-                disabled={items.length === 0}
+                disabled={items.length === 0 || hasInvalidOrExpiredItems}
                 onPress={handlePreviewBill}
                 style={{ width: '100%' }}
               />
@@ -759,6 +795,23 @@ const styles = StyleSheet.create({
     paddingTop: Spacing.sm,
     borderTopWidth: 1,
     borderTopColor: Colors.border,
+  },
+  expiredWarningBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: Colors.dangerBg,
+    borderWidth: 1,
+    borderColor: Colors.danger,
+    borderRadius: BorderRadius.sm,
+    paddingHorizontal: Spacing.sm,
+    paddingVertical: 8,
+    marginBottom: Spacing.sm,
+  },
+  expiredWarningText: {
+    flex: 1,
+    fontSize: 12,
+    fontWeight: '600',
+    color: Colors.danger,
   },
 });
 

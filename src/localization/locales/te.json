@@ -90,7 +90,11 @@
     "itemDeleted": "ఐటెమ్ తొలగించబడింది",
     "emptyBillError": "Please add at least one medicine item to the bill before previewing.",
     "missingNameError": "Item must have a medicine name.",
-    "invalidQtyError": "Quantity must be at least 1."
+    "invalidQtyError": "Quantity must be at least 1.",
+    "cardDetails": "కార్డ్ చెల్లింపు వివరాలు",
+    "cardExpiry": "కార్డ్ గడువు తేదీ (MM/YY)",
+    "cardExpiredError": "మందు గడువు ముగిసింది. దయచేసి భవిష్యత్తు గడువు తేదీని నమోదు చేయండి.",
+    "medicineExpiredError": "మందు గడువు ముగిసింది. దయచేసి భవిష్యత్తు గడువు తేదీని నమోదు చేయండి."
   },
   "preview": {
     "title": "Bill Receipt",
@@ -179,10 +183,10 @@
     "saveSettings": "సెట్టింగ్‌లను సేవ్ చేయండి",
     "savedSuccess": "సెట్టింగ్‌లు విజయవంతంగా సేవ్ చేయబడ్డాయి",
     "dangerZone": "Danger Zone",
-    "dangerSubtitle": "Delete all bill records and their line items from mobile, and reset the bill numbering sequence back to 0001 immediately.",
-    "resetBills": "Reset Bill (to 0001)",
-    "resetConfirmTitle": "Reset All Bills?",
-    "resetConfirmMsg": "This will permanently delete all bill records and their line items from mobile, and reset the bill number counter to 0001.\n\nThis action cannot be undone.",
+    "dangerSubtitle": "ఉన్న బిల్లులను తొలగించకుండా 0 నుండి బిల్లు సంఖ్య క్రమాన్ని పునఃప్రారంభించండి.",
+    "resetBills": "కౌంటర్‌ను రీసెట్ చేయండి (0 కి)",
+    "resetConfirmTitle": "బిల్లు కౌంటర్‌ను రీసెట్ చేయండి",
+    "resetConfirmMsg": "ఇది బిల్లు సంఖ్యను 0 నుండి పునఃప్రారంభిస్తుంది. కొనసాగించాలా?",
     "revisitGuide": "Take app tour again",
     "revisitGuideSubtitle": "See the Bill Desk guide again to understand how to use the app effectively.",
     "openGuide": "గైడ్‌ను తెరవండి"
@@ -207,6 +211,7 @@
     "loading": "లోడ్ అవుతోంది...",
     "success": "Success",
     "error": "Error",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "continue": "కొనసాగించండి"
   }
 }

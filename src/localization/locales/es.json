@@ -90,7 +90,11 @@
     "itemDeleted": "Artículo eliminado",
     "emptyBillError": "Añada al menos un medicamento antes de continuar.",
     "missingNameError": "El artículo debe tener nombre.",
-    "invalidQtyError": "La cantidad debe ser al menos 1."
+    "invalidQtyError": "La cantidad debe ser al menos 1.",
+    "cardDetails": "Detalles del pago con tarjeta",
+    "cardExpiry": "Fecha de caducidad de la tarjeta (MM/AA)",
+    "cardExpiredError": "El medicamento ha caducado. Por favor, introduzca una fecha de caducidad futura.",
+    "medicineExpiredError": "El medicamento ha caducado. Por favor, introduzca una fecha de caducidad futura."
   },
   "preview": {
     "title": "Recibo de Factura",
@@ -179,10 +183,10 @@
     "saveSettings": "Guardar Ajustes",
     "savedSuccess": "¡Ajustes guardados en el móvil!",
     "dangerZone": "Zona de Peligro",
-    "dangerSubtitle": "Eliminar todas las facturas y reiniciar la numeración a 0001.",
-    "resetBills": "Reiniciar Facturas (a 0001)",
-    "resetConfirmTitle": "¿Reiniciar Facturas?",
-    "resetConfirmMsg": "Esto eliminará permanentemente todas las facturas. Esta acción no se puede deshacer.",
+    "dangerSubtitle": "Reiniciar la secuencia de numeración de facturas desde 0 sin eliminar las facturas existentes.",
+    "resetBills": "Reiniciar contador (a 0)",
+    "resetConfirmTitle": "Reiniciar contador de facturas",
+    "resetConfirmMsg": "Esto reiniciará la numeración de facturas desde 0. ¿Continuar?",
     "revisitGuide": "Hacer el recorrido de la app de nuevo",
     "revisitGuideSubtitle": "Vea la guía de Bill Desk nuevamente para entender cómo usar la app eficazmente.",
     "openGuide": "Abrir guía"
@@ -207,6 +211,7 @@
     "loading": "Cargando...",
     "success": "Éxito",
     "error": "Error",
-    "confirm": "Confirmar"
+    "confirm": "Confirmar",
+    "continue": "Continuar"
   }
 }

@@ -90,7 +90,11 @@
     "itemDeleted": "آئٹم ہٹاونہٕ آو",
     "emptyBillError": "Please add at least one medicine item to the bill before previewing.",
     "missingNameError": "Item must have a medicine name.",
-    "invalidQtyError": "Quantity must be at least 1."
+    "invalidQtyError": "Quantity must be at least 1.",
+    "cardDetails": "کارڈٕچ ادائیگی ہٕنٛز تفصیلات",
+    "cardExpiry": "کارڈٕچ میعاد ختم گژھنُک تاریخ (MM/YY)",
+    "cardExpiredError": "دوا گییہ میعاد ختم۔ مہرَبٲنی کٔرِتھ دَرٕج کٔرِو برونٛہمہ کٲلٕچ تاریخ۔",
+    "medicineExpiredError": "دوا گییہ میعاد ختم۔ مہرَبٲنی کٔرِتھ دَرٕج کٔرِو برونٛہمہ کٲلٕچ تاریخ۔"
   },
   "preview": {
     "title": "Bill Receipt",
@@ -179,10 +183,10 @@
     "saveSettings": "ترتیبات محفوٗظ کٔرِو",
     "savedSuccess": "ترتیبات سپٕزی کامیابی سان محفوٗظ",
     "dangerZone": "Danger Zone",
-    "dangerSubtitle": "Delete all bill records and their line items from mobile, and reset the bill numbering sequence back to 0001 immediately.",
-    "resetBills": "Reset Bill (to 0001)",
-    "resetConfirmTitle": "Reset All Bills?",
-    "resetConfirmMsg": "This will permanently delete all bill records and their line items from mobile, and reset the bill number counter to 0001.\n\nThis action cannot be undone.",
+    "dangerSubtitle": "موجودہ بل ہٹاونہ بغیر 0 پیٹھہٕ بل نمبر سلسلہ دوبارٕ شۆروٗع کٔرِو۔",
+    "resetBills": "کاؤنٹر دوبارٕ سیٹ کٔرِو (0 پؠٹھ)",
+    "resetConfirmTitle": "بل کاؤنٹر دوبارٕ سیٹ کٔرِو",
+    "resetConfirmMsg": "یہٕ کَرِ 0 پؠٹھٕ بل نمبرنگ دوبارٕ شۆروٗع۔ جٲری تھاوُن؟",
     "revisitGuide": "Take app tour again",
     "revisitGuideSubtitle": "See the Bill Desk guide again to understand how to use the app effectively.",
     "openGuide": "رَہنُما کٔھلِو"
@@ -207,6 +211,7 @@
     "loading": "لوڈ گژھان چُھ...",
     "success": "Success",
     "error": "Error",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "continue": "جٲری تھاوِو"
   }
 }

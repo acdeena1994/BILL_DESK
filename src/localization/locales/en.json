@@ -90,7 +90,11 @@
     "itemDeleted": "Item removed from bill",
     "emptyBillError": "Please add at least one medicine item to the bill before previewing.",
     "missingNameError": "Item must have a medicine name.",
-    "invalidQtyError": "Quantity must be at least 1."
+    "invalidQtyError": "Quantity must be at least 1.",
+    "cardDetails": "Card Payment Details",
+    "cardExpiry": "Card Expiry Date (MM/YY)",
+    "cardExpiredError": "Medicine has expired. Please enter a future expiry date.",
+    "medicineExpiredError": "Medicine has expired. Please enter a future expiry date."
   },
   "preview": {
     "title": "Bill Receipt",
@@ -179,10 +183,10 @@
     "saveSettings": "Save Settings",
     "savedSuccess": "Settings saved and synced to mobile!",
     "dangerZone": "Danger Zone",
-    "dangerSubtitle": "Delete all bill records and their line items from mobile, and reset the bill numbering sequence back to 0001 immediately.",
-    "resetBills": "Reset Bill (to 0001)",
-    "resetConfirmTitle": "Reset All Bills?",
-    "resetConfirmMsg": "This will permanently delete all bill records and their line items from mobile, and reset the bill number counter to 0001.\n\nThis action cannot be undone.",
+    "dangerSubtitle": "Restart the bill numbering sequence from 0 without deleting existing bills.",
+    "resetBills": "Reset Counter (to 0)",
+    "resetConfirmTitle": "Reset Bill Counter",
+    "resetConfirmMsg": "This will restart bill numbering from 0. Continue?",
     "revisitGuide": "Take app tour again",
     "revisitGuideSubtitle": "See the Bill Desk guide again to understand how to use the app effectively.",
     "openGuide": "Open Guide"
@@ -200,6 +204,7 @@
     "sign": "Sign",
     "save": "Save",
     "cancel": "Cancel",
+    "continue": "Continue",
     "delete": "Delete",
     "edit": "Edit",
     "actions": "Actions",

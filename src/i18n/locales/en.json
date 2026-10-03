@@ -24,7 +24,11 @@
     "totalAmount": "Total Amount",
     "viewPdf": "View & Print PDF",
     "newBill": "Create New Bill",
-    "itemDeleted": "Item removed from bill"
+    "itemDeleted": "Item removed from bill",
+    "cardDetails": "Card Payment Details",
+    "cardExpiry": "Card Expiry Date (MM/YY)",
+    "cardExpiredError": "Medicine has expired. Please enter a future expiry date.",
+    "medicineExpiredError": "Medicine has expired. Please enter a future expiry date."
   },
   "analytics": {
     "title": "Sales Analytics",

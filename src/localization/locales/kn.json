@@ -90,7 +90,11 @@
     "itemDeleted": "ವಸ್ತು ಬಿಲ್‌ನಿಂದ ತೆಗೆದುಹಾಕಲಾಗಿದೆ",
     "emptyBillError": "Please add at least one medicine item to the bill before previewing.",
     "missingNameError": "Item must have a medicine name.",
-    "invalidQtyError": "Quantity must be at least 1."
+    "invalidQtyError": "Quantity must be at least 1.",
+    "cardDetails": "ಕಾರ್ಡ್ ಪಾವತಿ ವಿವರಗಳು",
+    "cardExpiry": "ಕಾರ್ಡ್ ಮುಕ್ತಾಯ ದಿನಾಂಕ (MM/YY)",
+    "cardExpiredError": "ಔಷಧಿ ಅವಧಿ ಮುಗಿದಿದೆ. ದಯವಿಟ್ಟು ಭವಿಷ್ಯದ ಮುಕ್ತಾಯ ದಿನಾಂಕವನ್ನು ನಮೂದಿಸಿ.",
+    "medicineExpiredError": "ಔಷಧಿ ಅವಧಿ ಮುಗಿದಿದೆ. ದಯವಿಟ್ಟು ಭವಿಷ್ಯದ ಮುಕ್ತಾಯ ದಿನಾಂಕವನ್ನು ನಮೂದಿಸಿ."
   },
   "preview": {
     "title": "Bill Receipt",
@@ -179,10 +183,10 @@
     "saveSettings": "ಸೆಟ್ಟಿಂಗ್ಸ್ ಉಳಿಸಿ",
     "savedSuccess": "ಸೆಟ್ಟಿಂಗ್ಸ್ ಯಶಸ್ವಿಯಾಗಿ ಉಳಿಸಲಾಗಿದೆ",
     "dangerZone": "Danger Zone",
-    "dangerSubtitle": "Delete all bill records and their line items from mobile, and reset the bill numbering sequence back to 0001 immediately.",
-    "resetBills": "Reset Bill (to 0001)",
-    "resetConfirmTitle": "Reset All Bills?",
-    "resetConfirmMsg": "This will permanently delete all bill records and their line items from mobile, and reset the bill number counter to 0001.\n\nThis action cannot be undone.",
+    "dangerSubtitle": "ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಬಿಲ್‌ಗಳನ್ನು ಅಳಿಸದೆಯೇ ಬಿಲ್ ಸಂಖ್ಯೆ ಅನುಕ್ರಮವನ್ನು 0 ರಿಂದ ಮರುಪ್ರಾರಂಭಿಸಿ.",
+    "resetBills": "ಕೌಂಟರ್ ಮರುಹೊಂದಿಸಿ (0 ಗೆ)",
+    "resetConfirmTitle": "ಬಿಲ್ ಕೌಂಟರ್ ಮರುಹೊಂದಿಸಿ",
+    "resetConfirmMsg": "ಇದು ಬಿಲ್ ಸಂಖ್ಯೆಯನ್ನು 0 ರಿಂದ ಮರುಪ್ರಾರಂಭಿಸುತ್ತದೆ. ಮುಂದುವರಿಸುವುದೇ?",
     "revisitGuide": "Take app tour again",
     "revisitGuideSubtitle": "See the Bill Desk guide again to understand how to use the app effectively.",
     "openGuide": "ಮಾರ್ಗದರ್ಶಿ ತೆರೆಯಿರಿ"
@@ -207,6 +211,7 @@
     "loading": "ಲೋಡ್ ಆಗುತ್ತಿದೆ...",
     "success": "Success",
     "error": "Error",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "continue": "ಮುಂದುವರಿಸಿ"
   }
 }

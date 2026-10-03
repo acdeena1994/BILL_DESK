@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { StockItem } from '../db/stockQueries';
 import { createBill } from '../db/billQueries';
-import { todayFormatted } from '../utils/formatters';
+import { todayFormatted, isExpiryDateValid } from '../utils/formatters';
 import { clearSavedBillingDraft } from '../services/billingDraftService';
 
 export interface BillCartItem {
@@ -20,6 +20,7 @@ interface BillingState {
   date: string;
   customerName: string;
   doctorName: string;
+  cardExpiryDate: string;
   items: BillCartItem[];
   isSaving: boolean;
   lastBillSavedTimestamp: number;
@@ -27,12 +28,13 @@ interface BillingState {
   setCustomerName: (name: string) => void;
   setDoctorName: (name: string) => void;
   setDate: (date: string) => void;
+  setCardExpiryDate: (date: string) => void;
   addItemFromStock: (stock: StockItem) => void;
   addNewBlankItem: () => void;
   updateItem: (index: number, updates: Partial<BillCartItem>) => void;
   removeItem: (index: number) => void;
   clearBill: () => void;
-  loadDraft: (draft: Partial<{ customerName: string; doctorName: string; date: string; items: BillCartItem[] }>) => void;
+  loadDraft: (draft: Partial<{ customerName: string; doctorName: string; cardExpiryDate: string; date: string; items: BillCartItem[] }>) => void;
   getTotalAmount: () => number;
   saveCurrentBill: () => Promise<{ billId: number; billNo: string }>;
 }
@@ -42,6 +44,7 @@ export const useBillingStore = create<BillingState>((set, get) => ({
   date: todayFormatted(),
   customerName: '',
   doctorName: '',
+  cardExpiryDate: '',
   items: [],
   isSaving: false,
   lastBillSavedTimestamp: 0,
@@ -49,6 +52,7 @@ export const useBillingStore = create<BillingState>((set, get) => ({
   setCustomerName: (name: string) => set({ customerName: name }),
   setDoctorName: (name: string) => set({ doctorName: name }),
   setDate: (date: string) => set({ date }),
+  setCardExpiryDate: (date: string) => set({ cardExpiryDate: date }),
 
   addItemFromStock: (stock: StockItem) => {
     const current = get().items;
@@ -101,6 +105,7 @@ export const useBillingStore = create<BillingState>((set, get) => ({
       date: todayFormatted(),
       customerName: '',
       doctorName: '',
+      cardExpiryDate: '',
       items: [],
     });
     clearSavedBillingDraft().catch((err) =>
@@ -112,6 +117,7 @@ export const useBillingStore = create<BillingState>((set, get) => ({
     set({
       customerName: draft.customerName || '',
       doctorName: draft.doctorName || '',
+      cardExpiryDate: draft.cardExpiryDate || '',
       date: draft.date || todayFormatted(),
       items: draft.items || [],
     });
@@ -127,12 +133,17 @@ export const useBillingStore = create<BillingState>((set, get) => ({
   },
 
   saveCurrentBill: async () => {
-    const { date, customerName, doctorName, items, getTotalAmount } = get();
+    const { date, customerName, doctorName, cardExpiryDate, items, getTotalAmount } = get();
     if (items.length === 0) {
       throw new Error('Please add at least one medicine to the bill');
     }
 
-    // Validate that items have a medicine name and valid quantity
+    // Backend validation: Re-validate expiry date if provided against chosen calendar date
+    if (cardExpiryDate && !isExpiryDateValid(cardExpiryDate, date)) {
+      throw new Error('Medicine has expired. Please enter a future expiry date.');
+    }
+
+    // Validate that items have a medicine name, valid quantity, and non-expired exp_date relative to chosen calendar date
     for (let i = 0; i < items.length; i++) {
       if (!items[i].medicine_name || items[i].medicine_name.trim() === '') {
         throw new Error(`Item #${i + 1} must have a medicine name`);
@@ -140,6 +151,10 @@ export const useBillingStore = create<BillingState>((set, get) => ({
       const q = Number(items[i].quantity);
       if (items[i].quantity === undefined || items[i].quantity === null || isNaN(q) || q < 1) {
         throw new Error(`Item #${i + 1} must have a valid quantity (1 or more)`);
+      }
+      const exp = items[i].exp_date?.trim();
+      if (exp && !isExpiryDateValid(exp, date)) {
+        throw new Error('Medicine has expired. Please enter a future expiry date.');
       }
     }
 
@@ -152,6 +167,7 @@ export const useBillingStore = create<BillingState>((set, get) => ({
           date,
           customer_name: customerName,
           doctor_name: doctorName,
+          card_expiry_date: cardExpiryDate,
           total_amount: total,
         },
         items.map((it) => ({
