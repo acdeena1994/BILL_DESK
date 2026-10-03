@@ -35,7 +35,7 @@ A ready-to-install production Android package is included directly in this repos
     <td align="center" width="33%">
       <img src="./App_Screenshot/preview.png" alt="Bill Receipt & Instant Review" width="100%" /><br />
       <b>Bill Review & Receipt</b><br />
-      <sub>Verify before checkout & share via PDF/WhatsApp</sub>
+      <sub>Verify before checkout & share via PDF</sub>
     </td>
     <td align="center" width="33%">
       <img src="./App_Screenshot/Analytics.png" alt="Sales Analytics & Registers" width="100%" /><br />
