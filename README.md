@@ -4,6 +4,62 @@
 
 Built with **React Native (Expo SDK 52)**, **TypeScript**, **Zustand**, and a local **SQLite database**, the app operates **100% offline** on the device with zero internet dependency, zero latency, and complete patient data privacy.
 
+<p align="center">
+  <img src="./App_Screenshot/Overview.png" alt="Bill Desk Overview" width="100%" />
+</p>
+
+---
+
+## 📥 Download Android APK
+
+A ready-to-install production Android package is included directly in this repository:
+
+* **[⬇️ Download Bill Desk.apk](./Bill%20Desk.apk)** *(Direct APK File — `Bill Desk.apk`)*
+
+> **Installation Steps**:
+> 1. Click the link above to download **`Bill Desk.apk`** (or copy it from the repository root folder to your Android phone).
+> 2. Open the downloaded `.apk` file on your Android device.
+> 3. If prompted, allow installation from unknown sources and tap **Install**.
+
+---
+
+## 📱 App Screenshots
+
+<table align="center">
+  <tr>
+    <td align="center" width="33%">
+      <img src="./App_Screenshot/Billing.png" alt="High-Speed POS Billing" width="100%" /><br />
+      <b>High-Speed POS Billing</b><br />
+      <sub>Instant search, cart & auto-save drafts</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="./App_Screenshot/preview.png" alt="Bill Receipt & Instant Review" width="100%" /><br />
+      <b>Bill Review & Receipt</b><br />
+      <sub>Verify before checkout & share via PDF/WhatsApp</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="./App_Screenshot/Analytics.png" alt="Sales Analytics & Registers" width="100%" /><br />
+      <b>Sales Analytics & Registers</b><br />
+      <sub>Audit-ready PDF & Excel statutory reports</sub>
+    </td>
+  </tr>
+</table>
+
+<table align="center">
+  <tr>
+    <td align="center" width="50%">
+      <img src="./App_Screenshot/Stock.png" alt="Smart Inventory & Stock" width="66%" /><br />
+      <b>Smart Inventory Management</b><br />
+      <sub>2.5L+ pre-loaded medicines & Excel/CSV bulk import</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="./App_Screenshot/setting.png" alt="Pharmacy Profile & Settings" width="66%" /><br />
+      <b>Pharmacy Profile & Multi-Language</b><br />
+      <sub>Configure GSTIN, Drug License No & 17 languages</sub>
+    </td>
+  </tr>
+</table>
+
 ---
 
 ## 🚀 Features (Implemented in this App)
@@ -106,7 +162,14 @@ node scripts/verify_billing_share_format.mjs
 
 ## 📦 How to Build and Download the APK
 
-You can build and download the installable `.apk` file using **Local Offline Build** (Gradle) or **Expo Cloud Build** (EAS).
+### Pre-Built APK (Ready to Install)
+* **Direct Download**: [**`Bill Desk.apk`**](./Bill%20Desk.apk) *(located in the project root directory)*
+* **Install via ADB**:
+  ```bash
+  adb install -r "Bill Desk.apk"
+  ```
+
+You can also rebuild the installable `.apk` file from source using **Local Offline Build** (Gradle) or **Expo Cloud Build** (EAS).
 
 ---
 
@@ -139,7 +202,7 @@ npm run build:apk
   ```
 
 #### 3. Install the APK to your Phone
-* **Via USB**: Connect your phone to your PC, copy `app-debug.apk` or `app-release.apk` to your phone's **Downloads** folder, and tap to install.
+* **Via USB**: Connect your phone to your PC, copy `Bill Desk.apk`, `app-debug.apk`, or `app-release.apk` to your phone's **Downloads** folder, and tap to install.
 * **Via ADB**:
   ```bash
   adb install -r android/app/build/outputs/apk/debug/app-debug.apk
@@ -173,6 +236,13 @@ EAS compiles the APK on Expo cloud servers and provides a direct download link a
 
 ```
 Bill Desk/
+├── App_Screenshot/                      # App preview banners & screen showcase images
+│   ├── Overview.png
+│   ├── Billing.png
+│   ├── preview.png
+│   ├── Analytics.png
+│   ├── Stock.png
+│   └── setting.png
 ├── android/                             # Android native Gradle configuration & build files
 ├── assets/                              # App icons, splash screens, and pre-bundled 66MB SQLite DB
 │   ├── billdesk.db                      # 2.5L+ pre-loaded medicine catalog
@@ -195,6 +265,7 @@ Bill Desk/
 │   ├── store/                           # Zustand stores (useBillingStore, useStockStore, useSettingsStore)
 │   └── utils/                           # Formatters, PDF generator, Excel generator/parser
 ├── App.tsx                              # App entry point & AppState draft listeners
+├── Bill Desk.apk                        # Pre-built installable Android APK package
 ├── app.json                             # Expo app configuration
 ├── eas.json                             # EAS Build configuration (APK profile)
 └── package.json                         # Scripts & dependencies
@@ -202,5 +273,4 @@ Bill Desk/
 
 ---
 
-## 📄 License
-This project is licensed under the **MIT License**.
+
