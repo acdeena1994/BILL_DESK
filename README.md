@@ -15,6 +15,8 @@ Built with **React Native (Expo SDK 52)**, **TypeScript**, **Zustand**, and a lo
 A ready-to-install production Android package is included directly in this repository:
 
 * **[⬇️ Download Bill Desk.apk](https://github.com/acdeena1994/BILL_DESK/raw/refs/heads/main/Bill%20Desk.apk?download=)** *(Direct APK File — `Bill Desk.apk`)*
+* **[⬇️ Download Bill Desk.apk](https://github.com)** *(Direct APK File — `Bill Desk.apk`)*
+
 
 
 > **Installation Steps**:
