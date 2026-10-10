@@ -78,10 +78,7 @@
 | | |
 |---|---|
 | **Version** | 1.0.0 |
-| **Requires** | Android 6.0+ (adjust to your `minSdkVersion`) |
-| **SHA-256** | `<paste checksum here>` |
-
-> 💡 **Generate the checksum** with `sha256sum "Bill Desk.apk"` (Linux/macOS) or `certutil -hashfile "Bill Desk.apk" SHA256` (Windows), then paste it above so users can verify their download.
+| **Requires** | Android 7.0+ (API 24) |
 
 ### Install on your phone
 
@@ -95,7 +92,7 @@
 adb install -r "Bill Desk.apk"
 ```
 
-> ⚠️ Only install the APK from this repository. Verify the SHA-256 checksum if you received the file from anywhere else.
+> ⚠️ Only install the APK from this repository.
 
 ---
 
@@ -122,11 +119,36 @@ adb install -r "Bill Desk.apk"
 * **Invoice history drilldown**: full line items, doctor, and customer details for past bills.
 
 ### 3. Inventory & Stock
-* **Pre-bundled catalog**: 250,000+ medicines in a 66 MB SQLite database installed on first launch.
+* **Pre-bundled catalog**: 250,000+ medicines in a 66 MB SQLite database installed on first launch (source dataset included in [`Stock_Database/`](./Stock_Database): `stock.csv` & `stock.json`).
 * **A–Z quick filter** combined with live text search.
 * **Manual stock management**: add or edit Product ID, Batch Number, Brand, Manufacturer, Pack Unit, Expiry Date, Price, and Quantity.
 * **Bulk import** from `.xlsx`, `.xls`, `.csv`, or `.json`.
 * **Import archiving**: imported files are backed up in the app sandbox (`stock/imports/`).
+
+#### 📄 Stock Bundle File Format (Excel / CSV & JSON)
+To import a new stock bundle in the app (**Stock → Import**), save your file as **Excel (`.xlsx` / `.xls`)**, **CSV (`.csv`)**, or **JSON (`.json`)** using the 5-field structure from [`Stock_Database/`](./Stock_Database):
+
+**1. Excel (`.xlsx`, `.xls`) / CSV (`.csv`) format:**
+Save with the following columns in order (see [`Stock_Database/stock.csv`](./Stock_Database/stock.csv)):
+
+| product_id | brand_name | manufacturer | pack_unit | packaging_raw |
+|---|---|---|---|---|
+| 1 | Augmentin 625 Duo Tablet | Glaxo SmithKline Pharmaceuticals Ltd | strip | strip of 10 tablets |
+
+**2. JSON (`.json`) format:**
+Save as a JSON array of objects (see [`Stock_Database/stock.json`](./Stock_Database/stock.json)):
+
+```json
+[
+  {
+    "product_id": 1,
+    "brand_name": "Augmentin 625 Duo Tablet",
+    "manufacturer": "Glaxo SmithKline Pharmaceuticals Ltd",
+    "pack_unit": "strip",
+    "packaging_raw": "strip of 10 tablets"
+  }
+]
+```
 
 ### 4. Pharmacy Profile & Settings
 * **Shop identity**: Pharmacy Name, Address, Contact Number, GSTIN, and Drug License Number.
@@ -136,7 +158,7 @@ adb install -r "Bill Desk.apk"
 * **Backup & restore**: export timestamped `.db` backups (with WAL checkpoint) to Google Drive or local storage; restore with schema verification.
 * **Bill counter reset**: confirmation-protected; restarts numbering without deleting existing bills.
 
-### 5. Languages (17)
+### 5. Languages (10+)
 Switch dynamically without restarting:
 English, தமிழ் (Tamil), हिन्दी (Hindi), తెలుగు (Telugu), বাংলা (Bengali), मराठी (Marathi), ગુજરાતી (Gujarati), ಕನ್ನಡ (Kannada), മലയാളം (Malayalam), ਪੰਜਾਬੀ (Punjabi), ଓଡ଼ିଆ (Odia), অসমীয়া (Assamese), اردو (Urdu), नेपाली (Nepali), कोंकणी (Konkani), کٲشُر (Kashmiri), and Español (Spanish).
 
@@ -157,25 +179,14 @@ English, தமிழ் (Tamil), हिन्दी (Hindi), తెలుగు
 
 ---
 
-## ⚠️ Limitations & Roadmap
+## ⚠️ Limitations
 
 ### Current limitations
 * **Android only**: no iOS build is provided.
 * **Single device**: no cloud sync or multi-device/multi-user support; use Backup & Restore to move data.
 * **No built-in authentication or user roles** (anyone with the unlocked phone can open the app).
 * **Manual stock updates**: stock changes come from billing, manual edits, or file import; there is no purchase-order or supplier workflow.
-* **Large initial install**: the bundled catalog adds about 66 MB.
 * **Catalog accuracy**: medicine data (names, manufacturers, prices) may be incomplete or outdated; always verify against the physical product.
-
-### Roadmap
-* [ ] Near-expiry and low-stock alerts
-* [ ] Optional app lock (PIN / biometric)
-* [ ] GST-wise tax reports
-* [ ] Purchase entry and supplier management
-* [ ] Scheduled automatic backups
-* [ ] Barcode scanning
-
-*(Edit this list to match your real plans.)*
 
 ---
 
@@ -184,7 +195,6 @@ English, தமிழ் (Tamil), हिन्दी (Hindi), తెలుగు
 * **Fully offline**: the app makes no network calls for core functionality. Patient, doctor, and sales data never leave the device unless **you** export or share it.
 * **Storage**: all data lives in a local SQLite database in the app sandbox.
 * **Backups**: backups are plain `.db` files that you control. Store them securely, as they contain patient and sales data.
-* **Catalog source**: the bundled medicine catalog comes from `<describe source and license here>`.
 * **Uninstalling** the app deletes local data unless you have exported a backup.
 
 ---
@@ -254,6 +264,7 @@ The `preview` profile in `eas.json` outputs a standalone `.apk`. When the build 
 ```
 Bill Desk/
 ├── App_Screenshot/        # README banners & screenshots
+├── Stock_Database/        # Medicine stock datasets (stock.csv & stock.json)
 ├── android/               # Native Android Gradle project
 ├── assets/                # Icons, splash, bundled SQLite catalog (billdesk.db, ~66 MB)
 ├── scripts/               # Verification tests & DB generator scripts
@@ -278,8 +289,6 @@ Bill Desk/
 └── package.json           # Scripts & dependencies
 ```
 
-> The pre-built `Bill Desk.apk` also sits in the repository root. Consider moving it to [GitHub Releases](../../releases) to keep the repo lightweight.
-
 ---
 
 ## 🤝 Contributing
@@ -297,8 +306,6 @@ Please open an issue first for large changes or bug reports.
 ## 📄 License
 
 This project is licensed under the **MIT License**. See the [LICENSE](./LICENSE) file for details.
-
-> Add a `LICENSE` file to the repository root (GitHub: *Add file → Create new file → name it `LICENSE` → Choose a license template*). Change the license above if you prefer another one.
 
 ---
 
