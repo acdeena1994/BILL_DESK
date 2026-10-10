@@ -158,7 +158,7 @@ Save as a JSON array of objects (see [`Stock_Database/stock.json`](./Stock_Datab
 * **Backup & restore**: export timestamped `.db` backups (with WAL checkpoint) to Google Drive or local storage; restore with schema verification.
 * **Bill counter reset**: confirmation-protected; restarts numbering without deleting existing bills.
 
-### 5. Languages (17)
+### 5. Languages (10+)
 Switch dynamically without restarting:
 English, தமிழ் (Tamil), हिन्दी (Hindi), తెలుగు (Telugu), বাংলা (Bengali), मराठी (Marathi), ગુજરાતી (Gujarati), ಕನ್ನಡ (Kannada), മലയാളം (Malayalam), ਪੰਜਾਬੀ (Punjabi), ଓଡ଼ିଆ (Odia), অসমীয়া (Assamese), اردو (Urdu), नेपाली (Nepali), कोंकणी (Konkani), کٲشُر (Kashmiri), and Español (Spanish).
 
@@ -187,8 +187,6 @@ English, தமிழ் (Tamil), हिन्दी (Hindi), తెలుగు
 * **No built-in authentication or user roles** (anyone with the unlocked phone can open the app).
 * **Manual stock updates**: stock changes come from billing, manual edits, or file import; there is no purchase-order or supplier workflow.
 * **Catalog accuracy**: medicine data (names, manufacturers, prices) may be incomplete or outdated; always verify against the physical product.
-
-
 
 ---
 
